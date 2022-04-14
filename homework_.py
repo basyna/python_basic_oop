@@ -6,7 +6,7 @@ from typing import ClassVar, Type, Dict
 @dataclass
 class InfoMessage:
     """Информационное сообщение о тренировке."""
-    messege: ClassVar[str] = ('Тип тренировки: {0}; Длительность: {1:.3f} ч.; '
+    messege: ClassVar[str] = ('Тип тренировки: {0} Длительность: {1:.3f} ч.; '
                               'Дистанция: {2:.3f} км; Ср. скорость:'
                               ' {3:.3f} км/ч; Потрачено ккал: {4:.3f}.')
 
