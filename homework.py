@@ -6,9 +6,10 @@ from typing import ClassVar, Type, Dict
 @dataclass
 class InfoMessage:
     """Информационное сообщение о тренировке."""
-    messege: ClassVar[str] = ('Тип тренировки: {0}; Длительность: {1:.3f} ч.; '
-                              'Дистанция: {2:.3f} км; Ср. скорость:'
-                              ' {3:.3f} км/ч; Потрачено ккал: {4:.3f}.')
+    messege: ClassVar[str] = ('Тип тренировки: {training_type}; Длительность:'
+                              ' {duration:.3f} ч.; Дистанция: {distance:.3f} '
+                              'км; Ср. скорость: {speed:.3f} км/ч; Потрачено '
+                              'ккал: {calories:.3f}.')
 
     training_type: str
     duration: float
@@ -17,7 +18,7 @@ class InfoMessage:
     calories: float
 
     def get_message(self) -> str:
-        return self.messege.format(*asdict(self).values())
+        return self.messege.format(**asdict(self))
 
 
 class Training:
@@ -136,7 +137,7 @@ class Swimming(Training):
 
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
-    training_code: Dict[str, Type(Training)] = {'SWM': Swimming,
+    training_code: Dict[str, Type[Training]] = {'SWM': Swimming,
                                                 'RUN': Running,
                                                 'WLK': SportsWalking
                                                 }
