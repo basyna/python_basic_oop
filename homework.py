@@ -6,10 +6,12 @@ from typing import ClassVar, Type, Dict
 @dataclass
 class InfoMessage:
     """Информационное сообщение о тренировке."""
-    messege: ClassVar[str] = ('Тип тренировки: {training_type}; Длительность:'
-                              ' {duration:.3f} ч.; Дистанция: {distance:.3f} '
-                              'км; Ср. скорость: {speed:.3f} км/ч; Потрачено '
-                              'ккал: {calories:.3f}.')
+    MESSEGE: ClassVar[str] = ('Тип тренировки: {training_type}; '
+                              'Длительность: {duration:.3f} ч.; '
+                              'Дистанция: {distance:.3f} км; '
+                              'Ср. скорость: {speed:.3f} км/ч; '
+                              'Потрачено ккал: {calories:.3f}.'
+                              )
 
     training_type: str
     duration: float
@@ -18,7 +20,7 @@ class InfoMessage:
     calories: float
 
     def get_message(self) -> str:
-        return self.messege.format(**asdict(self))
+        return self.MESSEGE.format(**asdict(self))
 
 
 class Training:
@@ -60,8 +62,12 @@ class Training:
         distance = self.get_distance()
         speed = self.get_mean_speed()
         calories = self.get_spent_calories()
-        return InfoMessage(training_type, duration, distance,
-                           speed, calories)
+        return InfoMessage(training_type,
+                           duration,
+                           distance,
+                           speed,
+                           calories
+                           )
 
 
 class Running(Training):
@@ -74,7 +80,8 @@ class Running(Training):
         """Получить количество затраченных калорий."""
         return ((self.CALORIES_MEAN_SPEED_RUN_1 * self.get_mean_speed()
                  - self.CALORIES_MEAN_SPEED_RUN_2) * self.weight
-                / self.M_IN_KM * self.duration * self.MINS_IN_HOUR)
+                / self.M_IN_KM * self.duration * self.MINS_IN_HOUR
+                )
 
 
 class SportsWalking(Training):
